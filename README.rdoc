@@ -105,6 +105,17 @@ When passing in a blob or IOStream, Windows users need to make sure they read th
   #You may run into problems doing it this way
   buffer = StringIO.new(File.read(IMAGE_PATH))
 
+== Windows Users (2) by Pika
+
+I got "no such file" error when using ANY method of mini-magick
+
+I spent a day to trace down, turns out the Process.spawn cannot find "gm" (even though the *magick paths are added to PATH)
+
+So you can now specify the install path if you have this problem by adding this to config/application.rb
+
+  MiniMagick::CommandBuilder.install_path = "C:/GraphicsMagick-1.3.13-Q16"
+
+Please use "/" instead of "\" to avoid any problem, also the "/" at the end of string is optional
 
 == Using GraphicsMagick
 
