@@ -443,8 +443,9 @@ module MiniMagick
     attr :args
     attr :command
     
+    # Path of ImageMagick or GMagick
+    @install_path = nil
     class << self
-      # Path of ImageMagick or GMagick, 
       attr_accessor :install_path
     end
 
