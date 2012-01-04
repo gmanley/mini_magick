@@ -444,7 +444,6 @@ module MiniMagick
     attr :command
     
     # Path of ImageMagick or GMagick
-    @@install_path = nil
     class << self
       attr_accessor :install_path
     end
@@ -457,9 +456,9 @@ module MiniMagick
 
     def command
       result = ""
-      if !@@install_path.nil?
-        result << @@install_path
-        result << "/" unless @@install_path =~ /\/$/
+      if !MiniMagick::CommandBuilder.install_path.nil?
+        result << MiniMagick::CommandBuilder.install_path
+        result << "/" unless MiniMagick::CommandBuilder.install_path =~ /\/$/
       end
       result << "#{MiniMagick.processor} #{@command} #{@args.join(' ')}".strip
       result
