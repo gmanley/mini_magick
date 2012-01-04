@@ -442,6 +442,11 @@ module MiniMagick
   class CommandBuilder
     attr :args
     attr :command
+    
+    # Path of ImageMagick or GMagick
+    class << self
+      attr_accessor :install_path
+    end
 
     def initialize(command, *options)
       @command = command
@@ -450,7 +455,13 @@ module MiniMagick
     end
 
     def command
-      "#{MiniMagick.processor} #{@command} #{@args.join(' ')}".strip
+      result = ""
+      if !MiniMagick::CommandBuilder.install_path.nil?
+        result << MiniMagick::CommandBuilder.install_path
+        result << "/" unless MiniMagick::CommandBuilder.install_path =~ /\/$/
+      end
+      result << "#{MiniMagick.processor} #{@command} #{@args.join(' ')}".strip
+      result
     end
 
     def method_missing(symbol, *options)
